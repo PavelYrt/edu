@@ -23,12 +23,9 @@ INSERT INTO Book (name, authorId, genreId, pagecount, description) VALUES ('III'
 INSERT INTO Book (name, authorId, genreId, pagecount, description) VALUES ('RRR', 3, 1, 324, 'eeeee');
 
 
-INSERT INTO Passport (series, number, placeOfIssue, dateOfIssue, residence)
-VALUES (5606, 894345, 'Penza', '2011-01-20', 'Penza');
-INSERT INTO Passport (series, number, placeOfIssue, dateOfIssue, residence)
-VALUES (5632, 543465, 'Moscow', '2012-04-21', 'Moscow');
-INSERT INTO Passport (series, number, placeOfIssue, dateOfIssue, residence)
-VALUES (5612, 562352, 'N.Novgorod', '2012-01-25', 'Saint Petersburg');
+INSERT INTO Passport (series, number, placeOfIssue, dateOfIssue, residence) VALUES (5606, 894345, 'Penza', '2011-01-20', 'Penza');
+INSERT INTO Passport (series, number, placeOfIssue, dateOfIssue, residence) VALUES (5632, 543465, 'Moscow', '2012-04-21', 'Moscow');
+INSERT INTO Passport (series, number, placeOfIssue, dateOfIssue, residence) VALUES (5612, 562352, 'N.Novgorod', '2012-01-25', 'Saint Petersburg');
 
 INSERT INTO User (fullName, passportId) VALUES ('Ivanov Ivan Ivanovich', 1);
 INSERT INTO User (fullName, passportId) VALUES ('Sergeev Sergey Sergeevich', 3);
