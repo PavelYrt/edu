@@ -28,25 +28,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class BookEditor extends VerticalLayout {
 
 	private final BookRepository repository;
-
-	/**
-	 * The currently edited book
-	 */
-	private Book book;
-
 	/* Fields to edit properties in Book entity */
 	TextField name = new TextField("name");
 	TextField author = new TextField("author");
 	TextField genre = new TextField("genre");
 	TextField pagecount = new TextField("pagecount");
 	TextField description = new TextField("description");
-
-
 	/* Action buttons */
 	Button save = new Button("Save", FontAwesome.SAVE);
 	Button cancel = new Button("Cancel");
 	Button delete = new Button("Delete", FontAwesome.TRASH_O);
 	CssLayout actions = new CssLayout(save, cancel, delete);
+	/**
+	 * The currently edited book
+	 */
+	private Book book;
 
 	@Autowired
 	public BookEditor(BookRepository repository) {
@@ -61,28 +57,18 @@ public class BookEditor extends VerticalLayout {
 		save.setClickShortcut(ShortcutAction.KeyCode.ENTER);
 
 		// wire action buttons to save, delete and reset
-		save.addClickListener(new Button.ClickListener() {
-			@Override
-			public void buttonClick(Button.ClickEvent e) {
-				repository.save(book);
-			}
-		});
+		save.addClickListener(e -> repository.save(book));
 		delete.addClickListener(e -> repository.delete(book));
-		cancel.addClickListener(e -> editCustomer(book));
+		cancel.addClickListener(e -> editBook(book));
 		setVisible(false);
 	}
 
-	public interface ChangeHandler {
-		void onChange();
-	}
-
-	public final void editCustomer(Book c) {
+	public final void editBook(Book c) {
 		final boolean persisted = c.getId() != null;
 		if (persisted) {
 			// Find fresh entity for editing
 			book = repository.findOne(c.getId());
-		}
-		else {
+		} else {
 			book = c;
 		}
 		cancel.setVisible(persisted);
@@ -104,13 +90,12 @@ public class BookEditor extends VerticalLayout {
 	public void setChangeHandler(ChangeHandler h) {
 		// ChangeHandler is notified when either save or delete
 		// is clicked
-		save.addClickListener(new Button.ClickListener() {
-			@Override
-			public void buttonClick(Button.ClickEvent e) {
-				h.onChange();
-			}
-		});
+		save.addClickListener(e -> h.onChange());
 		delete.addClickListener(e -> h.onChange());
+	}
+
+	public interface ChangeHandler {
+		void onChange();
 	}
 
 }

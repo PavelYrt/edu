@@ -2,7 +2,7 @@ package com.example.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 public class Author implements Serializable {
@@ -14,15 +14,16 @@ public class Author implements Serializable {
     @Column(nullable = false)
     public Long id;
 
-    private String fio;
+    private String fullName;
 
+    @Temporal(TemporalType.DATE)
     private Date birthday;
 
     protected Author() {
     }
 
-    public Author(String fio, Date birthday) {
-        this.fio = fio;
+    public Author(String fullName, Date birthday) {
+        this.fullName = fullName;
         this.birthday = birthday;
     }
 
@@ -34,12 +35,12 @@ public class Author implements Serializable {
         this.id = id;
     }
 
-    public String getFio() {
-        return fio;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFio(String fio) {
-        this.fio = fio;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public Date getBirthday() {
@@ -50,9 +51,11 @@ public class Author implements Serializable {
         this.birthday = birthday;
     }
 
+    // #костыль. Возвращает fullName чтобы в grid вместо хэшкода класса
+    // отображалось поле fullName таблицы authors
     @Override
     public String toString() {
-        return fio;
+        return fullName;
     }
 }
 

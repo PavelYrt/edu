@@ -1,8 +1,7 @@
 package com.example.controllers;
 
 import com.example.model.Book;
-import com.example.model.Genre;
-import com.example.service.BookService;
+import com.example.service.LibraryServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,7 +14,7 @@ import java.util.Collection;
 public class BookController {
 
     @Autowired
-    private BookService bookService;
+    private LibraryServices<Book, Long> bookService;
 
     @RequestMapping(
             value = "/book",
@@ -25,7 +24,7 @@ public class BookController {
 
         Collection<Book> greetings = bookService.findAll();
 
-        return new ResponseEntity<Collection<Book>>(greetings, HttpStatus.OK);
+        return new ResponseEntity<>(greetings, HttpStatus.OK);
     }
 
     @RequestMapping(

@@ -1,10 +1,9 @@
 package com.example.model;
 
-
-
-import org.hibernate.annotations.NaturalId;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 @Entity
@@ -62,12 +61,11 @@ public class Book implements Serializable {
     }
 
     public Author getAuthorId() {
-
         return authorId;
     }
 
     public void setAuthorId(String fio) {
-        this.authorId.setFio(fio);;
+        this.authorId.setFullName(fio);
     }
 
     public Genre getGenreId() {

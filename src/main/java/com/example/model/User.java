@@ -1,6 +1,9 @@
 package com.example.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 @Entity
@@ -12,25 +15,25 @@ public class User implements Serializable {
     @GeneratedValue
     private Long id;
 
-    private String fio;
+    private String fullName;
 
     @ManyToOne
     private Passport passportId;
 
-    public User(String fio, Passport passportId) {
-        this.fio = fio;
+    public User(String fullName, Passport passportId) {
+        this.fullName = fullName;
         this.passportId = passportId;
     }
 
     protected User() {
     }
 
-    public String getFio() {
-        return fio;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFio(String fio) {
-        this.fio = fio;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public Passport getPassportId() {
@@ -47,5 +50,10 @@ public class User implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return fullName;
     }
 }

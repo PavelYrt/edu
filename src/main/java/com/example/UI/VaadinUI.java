@@ -1,10 +1,11 @@
 package com.example.UI;
 
 import com.example.model.Book;
+import com.example.model.User;
 import com.example.repository.BookRepository;
+import com.example.repository.UserRepository;
 import com.vaadin.annotations.Theme;
 import com.vaadin.data.util.BeanItemContainer;
-import com.vaadin.event.SelectionEvent;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
@@ -12,34 +13,42 @@ import com.vaadin.ui.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
+
 @SpringUI
 @Theme("valo")
 public class VaadinUI extends UI {
 
-    private final BookRepository repo;
-
+    private final BookRepository bookRepo;
+    private final UserRepository userRepo;
     private final BookEditor editor;
-
     private final Grid grid;
-
     private final TextField filter;
-
     private final Button addNewBtn;
+    private final Button booksOnHandsBtn;
+    private final Button newUserBtn;
+    private final Button registerBtn;
+    private final ComboBox selectingUsers;
 
     @Autowired
-    public VaadinUI(BookRepository repo, BookEditor editor) {
-        this.repo = repo;
+    public VaadinUI(BookRepository bookRepo, BookEditor editor, UserRepository userRepo) {
+        this.bookRepo = bookRepo;
         this.editor = editor;
+        this.booksOnHandsBtn = new Button("Книги на руках");
+        this.newUserBtn = new Button("Добавить пользователя");
+        this.registerBtn = new Button("Оформить");
+        this.userRepo = userRepo;
+        this.selectingUsers = new ComboBox("Выбрать пользователя", listUsers());
         this.grid = new Grid();
         this.filter = new TextField();
-        this.addNewBtn = new Button("New customer", FontAwesome.PLUS);
+        this.addNewBtn = new Button("Добавить книгу", FontAwesome.PLUS);
     }
 
     @Override
     protected void init(VaadinRequest request) {
         // build layout
-        HorizontalLayout actions = new HorizontalLayout(filter, addNewBtn);
-        VerticalLayout mainLayout = new VerticalLayout(actions, grid, editor);
+        HorizontalLayout actions = new HorizontalLayout(filter, addNewBtn, booksOnHandsBtn, newUserBtn, registerBtn);
+        VerticalLayout mainLayout = new VerticalLayout(actions, grid, selectingUsers, editor);
         setContent(mainLayout);
 
         // Configure layouts and components
@@ -51,53 +60,49 @@ public class VaadinUI extends UI {
         grid.setWidth(910, Unit.PIXELS);
         grid.setColumns("id", "name", "authorId", "genreId", "pagecount", "description");
 
-        filter.setInputPrompt("Filter by id");
+        filter.setInputPrompt("Filter by name");
 
         // Hook logic to components
 
         // Replace listing with filtered content when user changes filter
-        filter.addTextChangeListener(e -> listCustomers(e.getText()));
+        filter.addTextChangeListener(e -> VaadinUI.this.listBooks(e.getText()));
 
         // Connect selected Customer to editor or hide if none is selected
-        grid.addSelectionListener(new SelectionEvent.SelectionListener() {
-            @Override
-            public void select(SelectionEvent e) {
-                if (e.getSelected().isEmpty()) {
-                    editor.setVisible(false);
-                } else {
-                    editor.editCustomer((Book) e.getSelected().iterator().next());
-                }
+        grid.addSelectionListener(e -> {
+            if (e.getSelected().isEmpty()) {
+                editor.setVisible(false);
+            } else {
+                editor.editBook((Book) e.getSelected().iterator().next());
             }
         });
 
         // Instantiate and edit new Book the new button is clicked
-        addNewBtn.addClickListener(new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent e) {
-                editor.editCustomer(new Book(""));//todo аргумент конструктора поставить
-            }
+        addNewBtn.addClickListener(e -> {
+            editor.editBook(new Book(""));//
         });
 
         // Listen changes made by the editor, refresh data from backend
-        editor.setChangeHandler(new BookEditor.ChangeHandler() {
-            @Override
-            public void onChange() {
-                editor.setVisible(false);
-                VaadinUI.this.listCustomers(filter.getValue());
-            }
+        editor.setChangeHandler(() -> {
+            editor.setVisible(false);
+            VaadinUI.this.listBooks(filter.getValue());
         });
 
         // Initialize listing
-        listCustomers(null);
+        listBooks(null);
     }
 
-    // tag::listCustomers[]
-    private void listCustomers(String text) {
+    @SuppressWarnings("unchecked")
+    private void listBooks(String text) {
         if (StringUtils.isEmpty(text)) {
             grid.setContainerDataSource(
-                    new BeanItemContainer(Book.class, repo.findAll()));
+                    new BeanItemContainer(Book.class, bookRepo.findAll()));
+        } else {
+            grid.setContainerDataSource(new BeanItemContainer(Book.class,
+                    bookRepo.findByNameStartsWithIgnoreCase(text)));
         }
-        // end::listCustomers[]
+    }
 
+    private List<User> listUsers() {
+        return userRepo.findAll();
     }
 }

@@ -1,56 +1,54 @@
 package com.example.service;
 
-import com.example.model.Book;
-import com.example.repository.BookRepository;
+import com.example.model.User;
+import com.example.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
-@Service
-public class BookServiceBean implements LibraryServices<Book, Long> {
+public class UserServiceBean implements LibraryServices<User, Long> {
 
     @Autowired
-    private BookRepository bookRepository;
+    private UserRepository userRepository;
 
     @Override
-    public Collection<Book> findAll() {
-        return bookRepository.findAll();
+    public Collection<User> findAll() {
+        return userRepository.findAll();
     }
 
     @Override
-    public Book findOne(Long id) {
-        return bookRepository.findOne(id);
+    public User findOne(Long id) {
+        return userRepository.findOne(id);
     }
 
     @Override
-    public Book create(Book book) {
+    public User create(User user) {
 
         // Ensure the entity object to be created does NOT exist in the
         // repository. Prevent the default behavior of save() which will update
         // an existing entity if the entity matching the supplied id exists.
-        return bookRepository.save(book);
+
+        return userRepository.save(user);
     }
 
     @Override
-    public Book update(Book book) {
+    public User update(User user) {
 
         // Ensure the entity object to be updated exists in the repository to
         // prevent the default behavior of save() which will persist a new
         // entity if the entity matching the id does not exist
-        Book genreToUpdate = findOne(book.getId());
-        if (genreToUpdate == null) {
+        User userToUpdate = findOne(user.getId());
+        if (userToUpdate == null) {
             // Cannot update Greeting that hasn't been persisted
             return null;
         }
 
-        genreToUpdate.setName(book.getName());
-        return bookRepository.save(genreToUpdate);
+        userToUpdate.setFullName(user.getFullName());
+        return userRepository.save(userToUpdate);
     }
 
     @Override
     public void delete(Long id) {
-        bookRepository.delete(id);
+        userRepository.delete(id);
     }
-
 }

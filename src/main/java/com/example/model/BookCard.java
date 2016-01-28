@@ -1,5 +1,8 @@
 package com.example.model;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
 
 @Entity
@@ -7,16 +10,22 @@ public class BookCard implements Serializable {
 
     public static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue
     private Long id;
+
     private Long internalNumber;
+
     private Long bookId;
 
     protected BookCard() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false, insertable = true, updatable = true)
+    public BookCard(Long internalNumber, Long bookId) {
+        this.internalNumber = internalNumber;
+        this.bookId = bookId;
+    }
+
     public Long getId() {
         return id;
     }
@@ -25,8 +34,6 @@ public class BookCard implements Serializable {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "internal_number", nullable = false, insertable = true, updatable = true)
     public Long getInternalNumber() {
         return internalNumber;
     }
@@ -35,8 +42,6 @@ public class BookCard implements Serializable {
         this.internalNumber = internalNumber;
     }
 
-    @Basic
-    @Column(name = "book_id", nullable = false, insertable = true, updatable = true)
     public Long getBookId() {
         return bookId;
     }
@@ -44,5 +49,4 @@ public class BookCard implements Serializable {
     public void setBookId(Long bookId) {
         this.bookId = bookId;
     }
-
 }
