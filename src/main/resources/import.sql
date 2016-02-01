@@ -3,10 +3,10 @@ INSERT INTO Genre (name) VALUES ('Tragedy');
 INSERT INTO Genre (name) VALUES ('Drama');
 INSERT INTO Genre (name) VALUES ('Roman');
 
-INSERT INTO Author (fullName) VALUES ('Pushkin');
-INSERT INTO Author (fullName) VALUES ('Lermontov');
-INSERT INTO Author (fullName) VALUES ('Tolstoy');
-INSERT INTO Author (fullName) VALUES ('Dostoevsky');
+INSERT INTO Author (authorFullName) VALUES ('Pushkin');
+INSERT INTO Author (authorFullName) VALUES ('Lermontov');
+INSERT INTO Author (authorFullName) VALUES ('Tolstoy');
+INSERT INTO Author (authorFullName) VALUES ('Dostoevsky');
 
 INSERT INTO Book (name, author, genre, pagecount, description) VALUES ('Book1', 1, 2, 145, 'flkgdflkn');
 INSERT INTO Book (name, author, genre, pagecount, description) VALUES ('Kniga2', 2, 2, 365, 'ssss');
@@ -34,6 +34,6 @@ INSERT INTO Passport (series, number, placeOfIssue, dateOfIssue, residence) VALU
 INSERT INTO Passport (series, number, placeOfIssue, dateOfIssue, residence) VALUES (5632, 543465, 'Moscow', '2012-04-21', 'Moscow');
 INSERT INTO Passport (series, number, placeOfIssue, dateOfIssue, residence) VALUES (5612, 562352, 'N.Novgorod', '2012-01-25', 'Saint Petersburg');
 
-INSERT INTO User (fullName, passportId) VALUES ('Ivanov Ivan Ivanovich', 1);
-INSERT INTO User (fullName, passportId) VALUES ('Sergeev Sergey Sergeevich', 3);
-INSERT INTO User (fullName, passportId) VALUES ('Antonov Anton Antonovich', 2);
+INSERT INTO User (userFullName, passportId) VALUES ('Ivanov Ivan Ivanovich', 1);
+INSERT INTO User (userFullName, passportId) VALUES ('Sergeev Sergey Sergeevich', 3);
+INSERT INTO User (userFullName, passportId) VALUES ('Antonov Anton Antonovich', 2);

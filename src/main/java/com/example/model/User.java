@@ -15,25 +15,25 @@ public class User implements Serializable {
     @GeneratedValue
     private Long id;
 
-    private String fullName;
+    private String userFullName;
 
     @ManyToOne
     private Passport passportId;
 
     public User(String fullName, Passport passportId) {
-        this.fullName = fullName;
+        this.userFullName = fullName;
         this.passportId = passportId;
     }
 
     protected User() {
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getUserFullName() {
+        return userFullName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setUserFullName(String userFullName) {
+        this.userFullName = userFullName;
     }
 
     public Passport getPassportId() {
@@ -54,6 +54,6 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return fullName;
+        return userFullName;
     }
 }

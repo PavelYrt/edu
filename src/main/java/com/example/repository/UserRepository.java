@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    List<User> findByFullNameStartsWithIgnoreCase(String fullNameOfUser);
+    List<User> findByUserFullNameStartsWithIgnoreCase(String fullNameOfUser);
 
 }
 

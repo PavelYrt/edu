@@ -40,7 +40,7 @@ public class BookServiceBean implements LibraryServices<Book, Long> {
         // entity if the entity matching the id does not exist
         Book genreToUpdate = findOne(book.getId());
         if (genreToUpdate == null) {
-            // Cannot update Greeting that hasn't been persisted
+            // Cannot update Book that hasn't been persisted
             return null;
         }
 

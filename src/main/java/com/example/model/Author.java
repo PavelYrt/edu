@@ -14,7 +14,7 @@ public class Author implements Serializable {
     @Column(nullable = false)
     public Long id;
 
-    private String fullName;
+    private String authorFullName;
 
     @Temporal(TemporalType.DATE)
     private Date birthday;
@@ -22,8 +22,8 @@ public class Author implements Serializable {
     protected Author() {
     }
 
-    public Author(String fullName, Date birthday) {
-        this.fullName = fullName;
+    public Author(String authorFullName, Date birthday) {
+        this.authorFullName = authorFullName;
         this.birthday = birthday;
     }
 
@@ -35,12 +35,12 @@ public class Author implements Serializable {
         this.id = id;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getAuthorFullName() {
+        return authorFullName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setAuthorFullName(String authorFullName) {
+        this.authorFullName = authorFullName;
     }
 
     public Date getBirthday() {
@@ -51,11 +51,11 @@ public class Author implements Serializable {
         this.birthday = birthday;
     }
 
-    // #костыль. Возвращает fullName чтобы в grid вместо хэшкода класса
-    // отображалось поле fullName таблицы authors
+    // #костыль. Возвращает authorFullName чтобы в grid вместо хэшкода класса
+    // отображалось поле authorFullName таблицы authors
     @Override
     public String toString() {
-        return fullName;
+        return authorFullName;
     }
 }
 

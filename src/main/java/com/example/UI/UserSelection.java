@@ -11,8 +11,6 @@ public class UserSelection {
 
     private final UserRepository userRepository;
 
-//    private User user;
-
     @Autowired
     public UserSelection(UserRepository userRepository) {
         this.userRepository = userRepository;

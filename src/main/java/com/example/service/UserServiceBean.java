@@ -41,11 +41,11 @@ public class UserServiceBean implements LibraryServices<User, Long> {
         // entity if the entity matching the id does not exist
         User userToUpdate = findOne(user.getId());
         if (userToUpdate == null) {
-            // Cannot update Greeting that hasn't been persisted
+            // Cannot update User that hasn't been persisted
             return null;
         }
 
-        userToUpdate.setFullName(user.getFullName());
+        userToUpdate.setUserFullName(user.getUserFullName());
         return userRepository.save(userToUpdate);
     }
 

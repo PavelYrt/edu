@@ -6,6 +6,7 @@ import java.util.Date;
 
 @Entity
 public class CardEntry implements Serializable {
+
     public static final long serialVersionUID = 1L;
 
     @Id
@@ -16,8 +17,6 @@ public class CardEntry implements Serializable {
 
     private long userId;
 
-    private String entryType;
-
     @Temporal(TemporalType.DATE)
     private Date dateOut;
 
@@ -27,10 +26,9 @@ public class CardEntry implements Serializable {
     protected CardEntry() {
     }
 
-    public CardEntry(long bookCardId, long userId, String entryType, Date dateOut, Date dateIn) {
+    public CardEntry(long bookCardId, long userId, Date dateOut, Date dateIn) {
         this.bookCardId = bookCardId;
         this.userId = userId;
-        this.entryType = entryType;
         this.dateOut = dateOut;
         this.dateIn = dateIn;
     }
@@ -57,14 +55,6 @@ public class CardEntry implements Serializable {
 
     public void setUserId(long userId) {
         this.userId = userId;
-    }
-
-    public String getEntryType() {
-        return entryType;
-    }
-
-    public void setEntryType(String entryType) {
-        this.entryType = entryType;
     }
 
     public Date getDateOut() {

@@ -67,7 +67,7 @@ public class VaadinUI extends UI {
         // Replace listing with filtered content when user changes filter
         filter.addTextChangeListener(e -> VaadinUI.this.listBooks(e.getText()));
 
-        // Connect selected Customer to editor or hide if none is selected
+        // Connect selected Book to editor or hide if none is selected
         grid.addSelectionListener(e -> {
             if (e.getSelected().isEmpty()) {
                 editor.setVisible(false);
