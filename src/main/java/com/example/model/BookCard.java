@@ -1,8 +1,6 @@
 package com.example.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -16,12 +14,14 @@ public class BookCard implements Serializable {
 
     private Long internalNumber;
 
-    private Long bookId;
+    @OneToOne(optional = false)
+    @JoinColumn(name = "book_id", unique = true, nullable = false, updatable = false)
+    private Book bookId;
 
     protected BookCard() {
     }
 
-    public BookCard(Long internalNumber, Long bookId) {
+    public BookCard(Long internalNumber, Book bookId) {
         this.internalNumber = internalNumber;
         this.bookId = bookId;
     }
@@ -42,11 +42,11 @@ public class BookCard implements Serializable {
         this.internalNumber = internalNumber;
     }
 
-    public Long getBookId() {
+    public Book getBookId() {
         return bookId;
     }
 
-    public void setBookId(Long bookId) {
+    public void setBookId(Book bookId) {
         this.bookId = bookId;
     }
 }

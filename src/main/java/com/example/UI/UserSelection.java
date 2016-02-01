@@ -1,6 +1,5 @@
 package com.example.UI;
 
-import com.example.model.User;
 import com.example.repository.UserRepository;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.UIScope;
@@ -12,7 +11,7 @@ public class UserSelection {
 
     private final UserRepository userRepository;
 
-    private User user;
+//    private User user;
 
     @Autowired
     public UserSelection(UserRepository userRepository) {

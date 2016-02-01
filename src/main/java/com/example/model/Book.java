@@ -1,9 +1,6 @@
 package com.example.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -18,26 +15,28 @@ public class Book implements Serializable {
     private String name;
 
     @ManyToOne(optional = false)
-    private Author authorId;
+    private Author author;
 
+    @ManyToOne(optional = false)
+    private Genre genre;
 
-    @ManyToOne(optional = false) //todo try to use this attribute: fetch = FetchType.EAGER
-    private Genre genreId;
+    @OneToOne(optional = false, mappedBy = "bookId")
+    private BookCard bookCardId;
 
     private int pagecount;
 
     private String description;
 
-    public Book(Long id, String name, Author authorId, Genre genreId, int pagecount, String description) {
-        this.id = id;
-        this.name = name;
-        this.authorId = authorId;
-        this.genreId = genreId;
-        this.pagecount = pagecount;
-        this.description = description;
+    protected Book() {
     }
 
-    protected Book() {
+    public Book(String name, Author author, Genre genre, BookCard bookCardId, int pagecount, String description) {
+        this.name = name;
+        this.author = author;
+        this.genre = genre;
+        this.bookCardId = bookCardId;
+        this.pagecount = pagecount;
+        this.description = description;
     }
 
     public Book(String name) {
@@ -60,20 +59,28 @@ public class Book implements Serializable {
         this.name = name;
     }
 
-    public Author getAuthorId() {
-        return authorId;
+    public Author getAuthor() {
+        return author;
     }
 
-    public void setAuthorId(String fio) {
-        this.authorId.setFullName(fio);
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 
-    public Genre getGenreId() {
-        return genreId;
+    public Genre getGenre() {
+        return genre;
     }
 
-    public void setGenreId(String name) {
-        this.genreId.setName(name);
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
+    public BookCard getBookCardId() {
+        return bookCardId;
+    }
+
+    public void setBookCardId(BookCard bookCardId) {
+        this.bookCardId = bookCardId;
     }
 
     public int getPagecount() {
@@ -91,5 +98,4 @@ public class Book implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
 }
