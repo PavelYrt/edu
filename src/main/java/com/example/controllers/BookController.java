@@ -1,6 +1,10 @@
 package com.example.controllers;
 
 import com.example.model.Book;
+import com.example.model.Passport;
+import com.example.model.User;
+import com.example.repository.PassportRepository;
+import com.example.repository.UserRepository;
 import com.example.service.LibraryServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,12 +13,30 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 public class BookController {
 
     @Autowired
+    private PassportRepository passportRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private LibraryServices<Book, Long> bookService;
+
+
+    @RequestMapping("/passports")
+    public List<Passport> getPassport() {
+        return passportRepository.findAll();
+    }
+
+    @RequestMapping("/users")
+    public List<User> getUsers() {
+        return userRepository.findAll();
+    }
 
     @RequestMapping(
             value = "/book",
@@ -22,9 +44,9 @@ public class BookController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Collection<Book>> getBook() {
 
-        Collection<Book> greetings = bookService.findAll();
+        Collection<Book> books = bookService.findAll();
 
-        return new ResponseEntity<>(greetings, HttpStatus.OK);
+        return new ResponseEntity<>(books, HttpStatus.OK);
     }
 
     @RequestMapping(

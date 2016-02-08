@@ -52,7 +52,7 @@ public class BookEditor extends VerticalLayout {
         authorName.setNullSelectionAllowed(false);
         genreName.setNullSelectionAllowed(false);
         authorName.addValueChangeListener(e -> book.setAuthor((Author) e.getProperty().getValue()));
-        genreName.addValueChangeListener(e -> book.setGenre((Genre) e.getProperty().getValue()));
+        genreName.addValueChangeListener(e -> book.setGenre((Genre) e.getProperty().getValue())); // todo transactions
 
         addComponents(name, authorName, genreName, pagecount, description, actions);
 
@@ -63,19 +63,19 @@ public class BookEditor extends VerticalLayout {
         save.setClickShortcut(ShortcutAction.KeyCode.ENTER);
 
         // wire action buttons to save, delete and reset
-        save.addClickListener(e -> bookRepository.saveAndFlush(book));
+        save.addClickListener(e -> bookRepository.saveAndFlush(book)); // todo saveAndFlush vs save
         delete.addClickListener(e -> bookRepository.delete(book));
         cancel.addClickListener(e -> editBook(book));
         setVisible(false);
     }
 
-    public final void editBook(Book c) {
-        final boolean persisted = c.getId() != null;
+    public final void editBook(Book book) {
+        final boolean persisted = book.getId() != null;
         if (persisted) {
             // Find fresh entity for editing
-            book = bookRepository.findOne(c.getId());
+            this.book = bookRepository.findOne(book.getId());
         } else {
-            book = c;
+            this.book = book;
         }
         cancel.setVisible(persisted);
 
@@ -83,7 +83,7 @@ public class BookEditor extends VerticalLayout {
         // book properties to similarly named fields
         // Could also use annotation or "manual binding" or programmatically
         // moving values from fields to entities before saving
-        BeanFieldGroup.bindFieldsUnbuffered(book, this);
+        BeanFieldGroup.bindFieldsUnbuffered(this.book, this);
 
         setVisible(true);
 

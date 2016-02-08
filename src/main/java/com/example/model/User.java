@@ -18,14 +18,18 @@ public class User implements Serializable {
     private String userFullName;
 
     @ManyToOne
-    private Passport passportId;
+    private Passport passport;
 
-    public User(String fullName, Passport passportId) {
-        this.userFullName = fullName;
-        this.passportId = passportId;
+    public User(String userfullName, Passport passport) {
+        this.userFullName = userfullName;
+        this.passport = passport;
     }
 
     protected User() {
+    }
+
+    public User(String userFullName) {
+        this.userFullName = userFullName;
     }
 
     public String getUserFullName() {
@@ -36,12 +40,12 @@ public class User implements Serializable {
         this.userFullName = userFullName;
     }
 
-    public Passport getPassportId() {
-        return passportId;
+    public Passport getPassport() {
+        return passport;
     }
 
-    public void setPassportId(Passport passportId) {
-        this.passportId = passportId;
+    public void setPassport(Passport passport) {
+        this.passport = passport;
     }
 
     public Long getId() {

@@ -13,9 +13,12 @@ public class Passport implements Serializable {
     @GeneratedValue
     private Long id;
 
-    private String series;
+    private int series;
 
-    private String number;
+    private int number;
+
+    @Temporal(TemporalType.DATE)
+    private Date dateOfBirth;
 
     private String placeOfIssue;
 
@@ -27,12 +30,16 @@ public class Passport implements Serializable {
     protected Passport() {
     }
 
-    public Passport(String series, String number, String placeOfIssue, Date dateOfIssue, String residence) {
+    public Passport(int series, int number, String placeOfIssue, Date dateOfIssue, String residence) {
         this.series = series;
         this.number = number;
         this.placeOfIssue = placeOfIssue;
         this.dateOfIssue = dateOfIssue;
         this.residence = residence;
+    }
+
+    public Passport(String placeOfIssue) { //todo Почему работает только с string конструктором? что тут, что в книге, что в юзере.
+        this.placeOfIssue = placeOfIssue;
     }
 
     public Long getId() {
@@ -43,20 +50,28 @@ public class Passport implements Serializable {
         this.id = id;
     }
 
-    public String getSeries() {
+    public int getSeries() {
         return series;
     }
 
-    public void setSeries(String series) {
+    public void setSeries(int series) {
         this.series = series;
     }
 
-    public String getNumber() {
+    public int getNumber() {
         return number;
     }
 
-    public void setNumber(String number) {
+    public void setNumber(int number) {
         this.number = number;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getPlaceOfIssue() {
@@ -81,5 +96,18 @@ public class Passport implements Serializable {
 
     public void setResidence(String residence) {
         this.residence = residence;
+    }
+
+    @Override
+    public String toString() {
+        return "Passport{" +
+                "id=" + id +
+                ", series=" + series +
+                ", number=" + number +
+                ", dateOfBirth=" + dateOfBirth +
+                ", placeOfIssue='" + placeOfIssue + '\'' +
+                ", dateOfIssue=" + dateOfIssue +
+                ", residence='" + residence + '\'' +
+                '}';
     }
 }
