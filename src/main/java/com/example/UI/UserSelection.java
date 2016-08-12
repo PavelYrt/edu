@@ -15,5 +15,4 @@ public class UserSelection {
     public UserSelection(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
 }

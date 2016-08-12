@@ -38,50 +38,35 @@ public class VaadinUI extends UI {
         this.userEditor = userEditor;
         this.booksGrid = new Grid();
         this.usersGrid = new Grid();
-        this.allUsersBtn = new Button("Пользователи");
-        this.booksOnHandsBtn = new Button("Книги на руках");
-        this.newUserBtn = new Button("Добавить пользователя", FontAwesome.PLUS);
-        this.registerBtn = new Button("Оформить");
+        this.allUsersBtn = new Button("Users");
+        this.booksOnHandsBtn = new Button("Books at users");
+        this.newUserBtn = new Button("Add user", FontAwesome.PLUS);
+        this.registerBtn = new Button("Checkout");
         this.userRepo = userRepo;
         this.filter = new TextField();
-        this.addNewBtn = new Button("Добавить книгу", FontAwesome.PLUS);
+        this.addNewBtn = new Button("Add book", FontAwesome.PLUS);
     }
 
     @Override
     protected void init(VaadinRequest request) {
-        // build layout
         HorizontalLayout actions = new HorizontalLayout(filter, addNewBtn, booksOnHandsBtn);
         VerticalLayout bookControls = new VerticalLayout(actions, booksGrid, bookEditor);
         VerticalLayout userControls = new VerticalLayout(new HorizontalLayout(newUserBtn, allUsersBtn), usersGrid, userEditor);
         HorizontalLayout mainLayout = new HorizontalLayout(bookControls, userControls);
-
         setContent(mainLayout);
-
-        // Configure layouts and components
         actions.setSpacing(true);
         bookControls.setSpacing(true);
         userControls.setSpacing(true);
         mainLayout.setMargin(true);
         mainLayout.setSpacing(true);
-        // userControls.setComponentAlignment(allUsersBtn, Alignment.TOP_CENTER);
-//        booksGrid.setWi
-//        booksGrid.setHeight(300, Unit.PIXELS);
         booksGrid.setWidth(600, Unit.PIXELS);
         booksGrid.setColumns("id", "name", "author", "genre", "pagecount", "description");
-
         usersGrid.setSizeFull();
         usersGrid.setColumns("id", "userFullName", "passport");
         usersGrid.setContainerDataSource(new BeanItemContainer(User.class, userRepo.findAll()));
-
-
         filter.setInputPrompt("Filter by name");
-
-        // Hook logic to components
-
-        // Replace listing with filtered content when user changes filter
         filter.addTextChangeListener(e -> VaadinUI.this.listBooks(e.getText()));
 
-        // Connect selected Book to bookEditor or hide if none is selected
         booksGrid.addSelectionListener(e -> {
             if (e.getSelected().isEmpty()) {
                 bookEditor.setVisible(false);
@@ -89,31 +74,18 @@ public class VaadinUI extends UI {
                 bookEditor.editBook((Book) e.getSelected().iterator().next());
             }
         });
-
-        // Instantiate and edit new Book the new button is clicked
-        addNewBtn.addClickListener(e ->
-                bookEditor.editBook(new Book("")));
-
-        newUserBtn.addClickListener(clickEvent ->
-                userEditor.editUser(new User(""), new Passport("")));
-
-        // Listen changes made by the bookEditor, refresh data from backend
+        addNewBtn.addClickListener(e -> bookEditor.editBook(new Book("")));
+        newUserBtn.addClickListener(clickEvent -> userEditor.editUser(new User(""), new Passport("")));
         bookEditor.setChangeHandler(() -> {
             bookEditor.setVisible(false);
             VaadinUI.this.listBooks(filter.getValue());
         });
-
-        // Initialize listing
         listBooks(null);
-
         userEditor.setChangeHandler(() -> {
             userEditor.setVisible(false);
             VaadinUI.this.listUsers();
         });
-
-        // Initialize listing
         listBooks(null);
-
     }
 
     @SuppressWarnings("unchecked")
@@ -128,8 +100,6 @@ public class VaadinUI extends UI {
     }
 
     private void listUsers() {
-
         usersGrid.setContainerDataSource(new BeanItemContainer(User.class, userRepo.findAll()));
-
     }
 }

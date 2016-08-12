@@ -51,8 +51,6 @@ public class Author implements Serializable {
         this.birthday = birthday;
     }
 
-    // #костыль. Возвращает authorFullName чтобы в grid вместо хэшкода класса
-    // отображалось поле authorFullName таблицы authors
     @Override
     public String toString() {
         return authorFullName;

@@ -25,22 +25,13 @@ public class BookServiceBean implements LibraryServices<Book, Long> {
 
     @Override
     public Book create(Book book) {
-
-        // Ensure the entity object to be created does NOT exist in the
-        // repository. Prevent the default behavior of save() which will update
-        // an existing entity if the entity matching the supplied id exists.
         return bookRepository.save(book);
     }
 
     @Override
     public Book update(Book book) {
-
-        // Ensure the entity object to be updated exists in the repository to
-        // prevent the default behavior of save() which will persist a new
-        // entity if the entity matching the id does not exist
         Book genreToUpdate = findOne(book.getId());
         if (genreToUpdate == null) {
-            // Cannot update Book that hasn't been persisted
             return null;
         }
 
@@ -52,5 +43,4 @@ public class BookServiceBean implements LibraryServices<Book, Long> {
     public void delete(Long id) {
         bookRepository.delete(id);
     }
-
 }

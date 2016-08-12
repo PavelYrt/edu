@@ -30,12 +30,9 @@ INSERT INTO Book (name, author, genre, pagecount, description) VALUES ('RRR', 3,
 -- INSERT INTO BookCard (internal_number, bookId) VALUES (212, 9);
 -- INSERT INTO BookCard (internal_number, bookId) VALUES (213, 10);
 
-INSERT INTO Passport (series, number, dateOfBirth, placeOfIssue, dateOfIssue, residence)
-VALUES (5606, 894345, '1991-12-24', 'Penza', '2011-01-20', 'Penza');
-INSERT INTO Passport (series, number, dateOfBirth, placeOfIssue, dateOfIssue, residence)
-VALUES (5632, 543465, '1988-06-14', 'Moscow', '2012-04-21', 'Moscow');
-INSERT INTO Passport (series, number, dateOfBirth, placeOfIssue, dateOfIssue, residence)
-VALUES (5612, 562352, '1971-10-01', 'N.Novgorod', '2012-01-25', 'Saint Petersburg');
+INSERT INTO Passport (series, number, dateOfBirth, placeOfIssue, dateOfIssue, residence) VALUES (5606, 894345, '1991-12-24', 'Penza', '2011-01-20', 'Penza');
+INSERT INTO Passport (series, number, dateOfBirth, placeOfIssue, dateOfIssue, residence) VALUES (5632, 543465, '1988-06-14', 'Moscow', '2012-04-21', 'Moscow');
+INSERT INTO Passport (series, number, dateOfBirth, placeOfIssue, dateOfIssue, residence) VALUES (5612, 562352, '1971-10-01', 'N.Novgorod', '2012-01-25', 'Saint Petersburg');
 
 INSERT INTO User (userFullName, passport) VALUES ('Ivanov Ivan Ivanovich', 1);
 INSERT INTO User (userFullName, passport) VALUES ('Sergeev Sergey Sergeevich', 3);

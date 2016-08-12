@@ -25,23 +25,13 @@ public class UserServiceBean implements LibraryServices<User, Long> {
 
     @Override
     public User create(User user) {
-
-        // Ensure the entity object to be created does NOT exist in the
-        // repository. Prevent the default behavior of save() which will update
-        // an existing entity if the entity matching the supplied id exists.
-
         return userRepository.save(user);
     }
 
     @Override
     public User update(User user) {
-
-        // Ensure the entity object to be updated exists in the repository to
-        // prevent the default behavior of save() which will persist a new
-        // entity if the entity matching the id does not exist
         User userToUpdate = findOne(user.getId());
         if (userToUpdate == null) {
-            // Cannot update User that hasn't been persisted
             return null;
         }
 
